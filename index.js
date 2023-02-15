@@ -6,8 +6,6 @@ function estacionDelAno() {
 //Modifica el tiempo de tardanza según el peso de la mochila (default: 9kg)
 function pesoMochila() {   
     lagunaJakob.modificaSegunPesoMochila();
-    console.log(lagunaNegra.tiempo);
-
 }
 
 
@@ -52,15 +50,17 @@ class Montana {
             let estaciones = prompt('Ingrese la estación del año a viajar:');
             let estacionesMayus = estaciones.toUpperCase();
              if (estacionesMayus == "PRIMAVERA" || "VERANO") {
-            return this.tiempo + 0;   
+            this.tiempo = this.tiempo + 0;   
             } else {
-             return this.tiempo + (this.tiempo * 0.6);
+             this.tiempo = this.tiempo + (this.tiempo * 0.6);
+             return this.tiempo;
             }
           }
 
         modificaSegunPesoMochila() {
             let pesoMochila = parseInt(prompt("Ingrese el peso de su mochila expresado en kg mayor a 9kg")); 
-            console.log(this.tiempo + (this.tiempo * (pesoMochila/100)));
+            this.tiempo = this.tiempo + (this.tiempo * (pesoMochila/100));
+            return this.tiempo;
             }
  }
 
