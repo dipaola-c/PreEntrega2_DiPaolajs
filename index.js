@@ -1,117 +1,118 @@
-//bienvenida general
-const bienvenida = "Bienvenidx a tu Calculadora de Montaña"
+//Modifica el tiempo de tardanza según la estación del año (default: PRIMAVERA/VERANO)
+function estacionDelAno() {   
+    lagunaJakob.modificaSegunEstacion();
+}
+
+//Modifica el tiempo de tardanza según el peso de la mochila (default: 9kg)
+function pesoMochila() {   
+    lagunaJakob.modificaSegunPesoMochila();
+    console.log(lagunaNegra.tiempo);
+
+}
+
+
+//Muestra las montañas ingresadas y sus datos modificados por el usuario      
+const compararMontanasIngresadas = () => {
+    let compararMontanas = 'Compará las montañas ingresadas:';
+    listaDeMontanasIngresadas.forEach((el, index) => {
+        compararMontanas += `
+                ${index + 1}) ${el.nombre} ---> ${el.dificultad}, ${el.altura}m, ${el.desnivel}m, ${el.tiempo}hs en subida
+                `;
+    });
+    console.log(compararMontanas);
+    alert(compararMontanas);
+}         
+
+//Muestra las opciones de las montañas disponibles
+const montanasDisponibles = () => {
+    let menuOpcionesMontanas = `Escribí el número correspondiente según la montaña a seleccionar:`;
+    Montanas.forEach((el, index) => {
+        menuOpcionesMontanas += `
+                ${index + 1}) ${el.nombre} ---> ${el.dificultad}
+                `;
+    });
+    let menuOpciones = parseInt(prompt(menuOpcionesMontanas));     
+    listaDeMontanasIngresadas.push(Montanas[menuOpciones - 1]);      
+    }; 
+
+
+//Array de las montañas ingresadas
+const listaDeMontanasIngresadas = [];
+
+//Constructor de montañas e instancias
+class Montana {
+    constructor (nombre, dificultad, altura, desnivel, tiempo) {
+        this.nombre = nombre;
+        this.dificultad = dificultad; 
+        this.altura = altura;
+        this.desnivel = desnivel;
+        this.tiempo = tiempo;
+        }
+        modificaSegunEstacion() {
+            let estaciones = prompt('Ingrese la estación del año a viajar:');
+            let estacionesMayus = estaciones.toUpperCase();
+             if (estacionesMayus == "PRIMAVERA" || "VERANO") {
+            return this.tiempo + 0;   
+            } else {
+             return this.tiempo + (this.tiempo * 0.6);
+            }
+          }
+
+        modificaSegunPesoMochila() {
+            let pesoMochila = parseInt(prompt("Ingrese el peso de su mochila expresado en kg mayor a 9kg")); 
+            console.log(this.tiempo + (this.tiempo * (pesoMochila/100)));
+            }
+ }
+
+//Montañas disponibles y datos de las mismas, el default del tiempo es en la estación PRIMAVERA/VERANO con una mochila de 9kg
+const lagunaNegra = new Montana ("Laguna Negra", "Media", 1730, 800, 5);
+const cerroCatedral = new Montana ("Cerro Catedral", "Baja", 2405, 1150, 6);
+const cerroTronador = new Montana ("Cerro Tronador", "Alta", 2000, 1050, 8);
+const lagunaJakob = new Montana ("Laguna Jakob", "Alta", 1600, 850, 7.30);
+const refugioFrey = new Montana ("Refugio Frey", "Media", 1700, 890, 4.30);
+
+const Montanas = [lagunaNegra, cerroCatedral, cerroTronador, lagunaJakob, refugioFrey];
+
+//Bienvenida general y explicación
+const bienvenida = `BIENVENIDX A TU CALCULADORA DE MONTAÑA DE BARILOCHE 
+        Te ofrecemos distintas opciones de cerros según tu ubicación y calcularemos tu tiempo estimado de trekking para que puedas organizar de la mejor forma tu viaje`
 alert(bienvenida);
 
-//bienvenida personalizada y explicación de la aplicación
-let bienvenidaPersonalizada = prompt ("Ingresá tu nombre");
-alert("Hola " + bienvenidaPersonalizada + " ---> Calcularemos tu tiempo estimado de trekking según distancia en km, desnivel en m, clima, y si el camino lo realizás de forma individual o grupal" )
+//Menú principal
+let nombreTurista = prompt ("Ingresá tu nombre");
+let menuOpciones = prompt ("Hola " + nombreTurista + ` ---> Escribí la letra correspondiente según la opción a seleccionar.: 
+            A) Cerros disponibles 
+            B) Ingresar estación del año
+            C) Ingresar peso de la mochila 
+            D) Comparar cerros seleccionados
+            E) SALIR`
+            );
 
-
-//selección del Cerro e indicación de su dificultad
-let seleccionCerro = prompt ("Escribí la letra correspondiente según el sendero a seleccionar: A) Cerro Aconcagua --- B) Volcán Lanín --- C) Cerro Lindo --- D) Cerro López --- E) Volcán Tronador /// Para saltear, escribí OTRA");
-
-while(seleccionCerro != 'OTRA') {
-switch (seleccionCerro) {
-    case "A":
-        console.log("El cerro/volcán seleccionado es Cerro Aconcagua y su dificultad es ALTA, sólo expertos");
-        alert ("Dificultad ALTA, sólo expertos")
-        break;
-    case "B":
-        console.log("El cerro/volcán seleccionado es Volcán Lanín y su dificultad es MEDIA");
-        alert ("Dificultad MEDIA")
-        break;
-    case "C":
-        console.log("El cerro/volcán seleccionado es Cerro Lindo y su dificultad es MEDIO/BAJA");
-        alert ("Dificultad MEDIO/BAJA")
-        break;
-    case "D":
-        console.log("El cerro/volcán seleccionado es Cerro López y su dificultad es BAJA");
-        alert ("Dificultad BAJA")
-        break;
-    case "E":
-        console.log("El cerro/volcán seleccionado es Volcán Tronador y su dificultad es MEDIA/BAJA");
-        alert ("Dificultad MEDIA/BAJA")
-        break;
-    default:
-        alert ("Has ingresado una letra NO válida")
-        break;
- }
- break;
-}
-
-// distancia sólo de subida
-let distanciaSubida = parseInt(prompt ("Ingresá la distancia a recorrer en kilómetros sólo en SUBIDA"));
-
-// desnivel sólo de subida
-let desnivelSubida = parseInt(prompt ("Ingresá el desnivel en metros sólo en SUBIDA"));
-
-// clima
-let clima = prompt ("Elegí la opción climática: A) Clima sin lluvia --- B) Clima lluvioso");
-
-//velocidad grupal o individual
-let velocidad = prompt ("Elegí la opción más adecuada a tu viaje: A) velocidad individual --- B) velocidad grupal");
-
-
-
-
-
-//Tiempo de viaje promedio sólo de SUBIDA: se estima 4km por hora y 300m verticales en ascenso por hora. El cálculo es (DISTANCIA/4) + ((DESNIVEL/300)/2) con clima SOLEADO y de forma INDIVIDUAL; si LLUEVE, se le agrega un 20% a la duración total de subida y si el camino es de forma GRUPAL, se le incrementa un 10% a la duración total de subida. 
-let resultadoSUBIDA = 0;
-
-function promedioSUBIDA (distanciaSubida, desnivelSubida) {
-    resultadoSUBIDA = distanciaSubida / 4 + ((desnivelSubida/300) / 2)
-}
-
-promedioSUBIDA(distanciaSubida, desnivelSubida);
-
-
-//El tiempo de viaje promedo de BAJADA se calcula un 80% del tiempo total de SUBIDA
-let resultadoBAJADA = 0;
-
-function promedioBAJADA (resultadoSUBIDA) {
-    resultadoBAJADA = resultadoSUBIDA * 0.8
-}
-promedioBAJADA(resultadoSUBIDA);
-
-
-//Suma de tiempo de SUBIDA + BAJADA
-let resultadoTOTAL = 0;
-let resultadoTOTALredondeo = 0;
-let factorClima = 0;
-let factorVelocidad = 0;
-
-if (clima == "B") {
-    factorClima = resultadoSUBIDA * 0.2;   
-} else {
-    factorClima = resultadoSUBIDA * 0;
-}
-
-if (velocidad == "B") {
-    factorVelocidad = resultadoSUBIDA * 0.1;   
-} else {
-    factorVelocidad = resultadoSUBIDA * 0;
-}
-
-function promedioTOTAL (resultadoSUBIDA, resultadoBAJADA, factorClima, factorVelocidad) {
-    resultadoTOTAL = resultadoSUBIDA + resultadoBAJADA + factorClima + factorVelocidad
-}
-promedioTOTAL (resultadoSUBIDA, resultadoBAJADA, factorClima, factorVelocidad);
-
-
-//Redondeo a 2 decimales
-function promedioREDONDEO (resultadoTOTAL) {
-     resultadoTOTALredondeo = resultadoTOTAL.toFixed(2);
-     return resultadoTOTALredondeo;
-}
-promedioREDONDEO (resultadoTOTAL);
-
-//Mostramos el resultado promedio en pantalla,redondeado
-function mostrar (resultadoTOTALredondeo) {
-    alert("El tiempo estimado de SUBIDA y de BAJADA es de " + resultadoTOTALredondeo + " hs")
-}
-
-mostrar(resultadoTOTALredondeo);
-
-
-
-//Para agregar en el futuro, podría estipularse el tiempo teniendo en cuenta PESO de la mochila, estado FISICO y cantidad de PARADAS en el recorrido.
+while(menuOpciones != 'E') {
+    switch (menuOpciones) {
+        case "A":
+            montanasDisponibles();
+            break;
+        case "B":
+            estacionDelAno();            
+            break;
+        case "C":
+            pesoMochila();
+            break;
+        case "D":
+            compararMontanasIngresadas();
+                break;
+        default:
+            break;
+     }
+     menuOpciones = prompt ("Hola " + nombreTurista + ` ---> Escribí la letra correspondiente según la opción a seleccionar: 
+                A) Cerros disponibles 
+                B) Ingresar estación del año
+                C) Ingresar peso de la mochila 
+                D) Comparar cerros seleccionados
+                E) SALIR`
+     );
+     if (menuOpciones == 'E') {
+        alert ("Gracias por utilizar nuestra Calculadora de Montaña");
+     }
+    }
